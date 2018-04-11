@@ -1,31 +1,40 @@
 function mostrar(dados) {
-    let latitude = dados.results[0].geometry.location.lat;
-    let longitude = dados.results[0].geometry.location.lng;
-    let nomeCidade = dados.results[0].formatted_address;
-
-    let htmlNome = document.createElement("p");
-    htmlNome.innerHTML = "Cidade: " + nomeCidade;
-
-    let htmlLatitude = document.createElement("p");
-    htmlLatitude.innerHTML = "Latitude: "+ latitude;
-    let htmlLongitude = document.createElement("p");
-    htmlLongitude.innerHTML = "Longitude: "+ longitude;
-
     let divResposta = document.querySelector("#resultado");
 
     while (divResposta.firstChild) {
         divResposta.removeChild(divResposta.firstChild);
     }
 
-    divResposta.appendChild(htmlNome);
-    divResposta.appendChild(htmlLatitude);
-    divResposta.appendChild(htmlLongitude);
+    if(dados.error_message){
+        let htmlErro = document.createElement("p");
+        htmlErro.innerHTML = "Erro ao obter os dados do servidor.";
 
+        divResposta.appendChild(htmlErro);
+    }
+    else{
+        let latitude = dados.results[0].geometry.location.lat;
+        let longitude = dados.results[0].geometry.location.lng;
+        let nomeCidade = dados.results[0].formatted_address;
+
+        let htmlNome = document.createElement("p");
+        htmlNome.innerHTML = "Cidade: " + nomeCidade;
+
+        let htmlLatitude = document.createElement("p");
+        htmlLatitude.innerHTML = "Latitude: "+ latitude;
+        let htmlLongitude = document.createElement("p");
+        htmlLongitude.innerHTML = "Longitude: "+ longitude;
+
+
+        divResposta.appendChild(htmlNome);
+        divResposta.appendChild(htmlLatitude);
+        divResposta.appendChild(htmlLongitude);
+    }
 }
 
 function extrair(resposta) {
-    console.log(resposta.ok);
-    return resposta.json();
+    if(resposta.ok){
+        return resposta.json();
+    }
 }
 
 function buscarLatLong(){
