@@ -1,14 +1,14 @@
 function mostrar(dados) {
     let latitude = dados.results[0].geometry.location.lat;
-    let longitude = dados.results[0].geometry.location.lnt;
+    let longitude = dados.results[0].geometry.location.lng;
 
     let htmlLatitude = document.createElement("p");
-    htmlLatitude = "Latitude: "+ latitude;
+    htmlLatitude.innerHTML = "Latitude: "+ latitude;
     let htmlLongitude = document.createElement("p");
-    htmlLongitude = "Longitude: "+ longitude;
+    htmlLongitude.innerHTML = "Longitude: "+ longitude;
 
     let divResposta = document.querySelector("#resultado");
-    divResposta.appendChild(htmlLatitude); 
+    divResposta.appendChild(htmlLatitude);
     divResposta.appendChild(htmlLongitude);
 
 }
@@ -21,13 +21,10 @@ function extrair(resposta) {
 function buscarLatLong(){
     let boxInput = document.querySelector("input");
     let cidade = boxInput.value;
-    const baseUrl = "https://maps.googleapis.com/maps/api/geocode/json"
+    const baseUrl = "https://maps.googleapis.com/maps/api/geocode/json";
     let url = baseUrl + "?address=" + cidade;
     fetch(url).then(extrair).then(mostrar);
-    // console.log(`criquei`);
-    
 }
 
 let botao = document.querySelector("button");
-
 botao.onclick = buscarLatLong;
