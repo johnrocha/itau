@@ -12,6 +12,11 @@ function mostrar(dados) {
     htmlLongitude.innerHTML = "Longitude: "+ longitude;
 
     let divResposta = document.querySelector("#resultado");
+
+    while (divResposta.firstChild) {
+        divResposta.removeChild(divResposta.firstChild);
+    }
+
     divResposta.appendChild(htmlNome);
     divResposta.appendChild(htmlLatitude);
     divResposta.appendChild(htmlLongitude);
